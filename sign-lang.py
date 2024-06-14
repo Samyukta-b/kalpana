@@ -3,7 +3,6 @@ import cv2
 import matplotlib.pyplot as plt
 from io import BytesIO
 
-# Step 1: Convert audio to text
 def audio_to_text():
     recognizer = sr.Recognizer()
     with sr.Microphone(device_index=None) as source:  # Use the default system audio input device
@@ -13,12 +12,11 @@ def audio_to_text():
     try:
         text = recognizer.recognize_google(audio)
         print("You said:", text)
-        return text.upper()  # Convert text to uppercase for consistent mapping
+        return text.upper() 
     except Exception as e:
         print("Error:", str(e))
         return None
 
-# Step 2: Load images and create mapping dictionary
 def load_images():
     images = {}
     for char in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ': 
@@ -31,7 +29,6 @@ def load_images():
             print(f"Error loading image for character '{char}': {str(e)}")
     return images
 
-# Step 3: Main function
 def main():
     images = load_images()
     if not images:
@@ -63,7 +60,6 @@ def main():
         buf.seek(0)
         buf_str = buf.getvalue()
 
-        #plt.savefig('sign_language_output.html', format='html')
         with open('sign_language_output.png', 'wb') as f:
             f.write(buf_str)
         plt.show()
